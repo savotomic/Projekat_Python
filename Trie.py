@@ -53,6 +53,3 @@ if __name__ == "__main__":
     print(pretraga(root, 'pr'))
     print(pretraga(root, 'prep'))
     print(pretraga(root, '.'))
-
-
-
