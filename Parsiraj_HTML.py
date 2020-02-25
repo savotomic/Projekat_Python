@@ -48,3 +48,17 @@ def parsiraj_unetu(rootdir,graf):
         print("Uneti link nije validan.")
         return None
     return recnik1
+
+def nas_recnik(upit, recnik1):
+    novi_recnik = {}
+    broj_pojavljivanja = 0
+    for key, value in recnik1.items():
+        if int(find_word(value,upit)[1]) != 0:
+            root, broj_pojavljivanja, novi_recnik = find_word(value,upit)
+    print("Broj pojavljivanja reci " +str(upit)+ " : " +str(broj_pojavljivanja))
+    print("Novi recnik: " +str(novi_recnik))
+    #for item in novi_recnik.items():
+        #print (item)
+    if(broj_pojavljivanja == 0):
+        print("Uneta rec ne postoji na unetoj lokaciji.")
+    return novi_recnik, broj_pojavljivanja

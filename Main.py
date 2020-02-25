@@ -17,7 +17,7 @@ if __name__ == '__main__':
         print("3 - Unos upita")
         print("")
         print("NAPOMENA:")
-        print("Ako zelite da unesete neki upit potrebno je da prvo izaberete opciju 1 ili 2.")
+        print("Ako zelite da unesete neki upit, tj zelite opciju 3, potrebno je da prvo izaberete opciju 1 ili 2.")
         userInput = input("Izaberi opciju: ")
         if userInput == "0":
             running = False
@@ -46,8 +46,12 @@ if __name__ == '__main__':
             print("Ako zelite da uneste logicki unos, unesite na sl nacin: rec operand rec (operand=[and,or,not,AND,OR,NOT])")
             print("")
             unos = str(input("Unesite unos koji zelite da pretrazite: "))
-            obicanUpit(recnik, unos)
+            startTime = time()
+            obicanUpit(recnik, unos,graf)
+            endTime = time()
+            vreme = endTime - startTime
             if len(unos) == 0:
                 print("GRESKA!")
                 print("Morate uneti neki unos!")
-
+            else:
+                print("Vreme pronalazenja unosa: " + str(vreme) + " sekundi")
