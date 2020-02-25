@@ -4,17 +4,18 @@ class Set:
         self.rezultat = {}
 
     def presek(self,prvaRec,drugaRec):
-        rezultat = Set()
+        rezultat = {}
         for stranica1, rang1 in prvaRec.items():
             for stranica2, rang2 in drugaRec.items():
                 if stranica1 == stranica2:
                     rezultat[stranica1] = rang1 + rang2
 
-        return recnikNovi
+        return rezultat
 
 
     def unija(self,prvaRec,drugaRec):
-        rezultat = Set()
+        rezultat = {}
+
         for stranica1, rang in prvaRec.items():
             if stranica1 not in drugaRec:
                 rezultat[stranica1] = rang
@@ -31,7 +32,7 @@ class Set:
         return rezultat
 
     def komplement(self,prvaRec,drugaRec):
-        rezultat = Set()
+        rezultat = {}
         for stranica1, rang in prvaRec.items():
             if stranica1 not in drugaRec:
                 rezultat[stranica1] = rang

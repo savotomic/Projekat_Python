@@ -1,11 +1,12 @@
 from time import time
 from Parsiraj_HTML import *
 from Pretraga import *
+from Graf import Graph
 
 if __name__ == '__main__':
     running = True
     userInput = None
-
+    graf = Graph(True)
     while running:
         print("")
         print("*********************")
@@ -24,7 +25,7 @@ if __name__ == '__main__':
         if userInput == "1":
             startTime = time()
             print("Vrsi se ucitavanje...")
-            recnik = parsiraj()
+            recnik = parsiraj(graf)
             endTime = time()
             vreme = endTime - startTime
             print("Vreme ucitavanja HTML fajla: " + str(vreme) + " sekundi")
@@ -33,7 +34,7 @@ if __name__ == '__main__':
             lokacija = str(input('Unesi putanju za HTML fajl: '))
             startTime = time()
             print("Vrsi se ucitavanje...")
-            recnik = parsiraj_unetu(lokacija)
+            recnik = parsiraj_unetu(lokacija,graf)
             endTime = time()
             vreme = endTime - startTime
             print("Vreme ucitavanja unetog HTML fajla: " + str(vreme) + " sekundi")
