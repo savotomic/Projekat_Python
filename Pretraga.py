@@ -17,10 +17,10 @@ def obicanUpit(rootdir, upit, graf):          # u obican upit mozemo uneti obicn
 def logickiupit(rootdir,upit):                         #ovde se mogu podrzati i logicki operatori, da moze da parsira zajedno sa njima
     reci = upit.split(' ')
     if (len(reci) != 3):                      # duzina formata mora biti duzine 3, npr. java AND python
-        print("Greska, nije dobar format! Primer formata: python AND java")
+        print("Greska, nije dobar format! Obican upit: rec rec ... Logicki upit: rec operand rec [operand = AND,and,OR,or,NOT,not]")
         return None
     if (reci[0] in logickeOperacije) or (reci[2] in logickeOperacije) or (reci[1] not in logickeOperacije):
-        print("Greska, nije dobar format! Primer formata python AND java")
+        print("Greska, nije dobar format! Obican upit: rec rec ... Logicki upit: rec operand rec [operand = AND,and,OR,or,NOT,not]")
         return None
     print("Upit je uspesno unet!")
 
