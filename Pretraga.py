@@ -115,3 +115,5 @@ def quick_sort(arr, left, right):
         pivot = partition(arr, left, right)
         quick_sort(arr, left, pivot - 1)
         quick_sort(arr, pivot + 1, right)
+
+
