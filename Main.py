@@ -134,9 +134,10 @@ if __name__ == '__main__':
                     rezultatRangiranja = obicanUpit(recnik, unos, graf)
                     zaSortiranje = []
                     br = 1
-                    for key, value in rezultatRangiranja.rezultat.items():
-                        item = Pomocni(key, value)
-                        zaSortiranje.append(item)
+                    if  (rezultatRangiranja != None):
+                        for key, value in rezultatRangiranja.rezultat.items():
+                            item = Pomocni(key, value)
+                            zaSortiranje.append(item)
                     # bubble_sort(listaZaSort)
                     quick_sort(zaSortiranje, 0, len(zaSortiranje) - 1)
                     #
