@@ -58,7 +58,15 @@ if __name__ == '__main__':
                     print("")
                     unos = str(input("Unesite upit koji zelite da pretrazite: "))
                     startTime = time()
-                    obicanUpit(recnik, unos, graf)
+                    #obicanUpit(recnik, unos, graf)
+                    # rang = obicanUpit(recnik, unos, graf)
+                    #
+                    # print(rang)
+                    # listaZaSort = []                      #proba ranga
+                    # br = 1
+                    # for key, value in rang.items():
+                    #     print("ket ",key)
+                    #     print("vr: ",value)
                     endTime = time()
                     vreme = endTime - startTime
                     if len(unos) == 0:

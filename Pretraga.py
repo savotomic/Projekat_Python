@@ -12,6 +12,10 @@ def obicanUpit(rootdir, upit, graf):          # u obican upit mozemo uneti obicn
     for i in range(len(reci)):
         print("Pronalazenje reci " + str(reci[i]) + ":")
         recnik2, broj2 = nas_recnik(reci[i], rootdir)
+        rangiranaPretraga=rangiranje(recnik2,graf)          #vraca recnik rangiranih stranica za datu rec
+        # if (len(reci) == 1):
+        #     return rangiranaPretraga
+        reci[i]= rangiranaPretraga
 
 
 def logickiupit(rootdir,upit):                         #ovde se mogu podrzati i logicki operatori, da moze da parsira zajedno sa njima
@@ -25,3 +29,15 @@ def logickiupit(rootdir,upit):                         #ovde se mogu podrzati i 
     print("Upit je uspesno unet!")
 
 
+def rangiranje(podaci,graf):
+    rangovi = {}
+    for key in podaci.keys():
+        rang = podaci[key] * 3
+        linkovi = graf.incident_edges(key, False)
+        rang += len(linkovi) * 0.3
+        for edge in linkovi:
+            prekoputa = edge.opposite(key)
+            if prekoputa in podaci.keys():
+                rang += podaci[prekoputa] * 0.5
+        rangovi[key.element()] = rang
+    return rangovi

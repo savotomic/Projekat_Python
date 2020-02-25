@@ -56,7 +56,7 @@ def nas_recnik(upit, recnik1):
         if int(find_word(value,upit)[1]) != 0:
             root, broj_pojavljivanja, novi_recnik = find_word(value,upit)
     print("Broj pojavljivanja reci " +str(upit)+ " : " +str(broj_pojavljivanja))
-    print("Novi recnik: " +str(novi_recnik))
+    #print("Novi recnik: " +str(novi_recnik))
     #for item in novi_recnik.items():
         #print (item)
     if(broj_pojavljivanja == 0):
