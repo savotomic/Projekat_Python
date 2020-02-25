@@ -8,8 +8,8 @@ def obicanUpit(rootdir, upit, graf):          # u obican upit mozemo uneti obicn
     reci = upit.split(" ")         # i onda parsira svaku rec posebno
     for i in range(len(reci)):
         if (reci[i] in logickeOperacije):
-            logickiupit(rootdir, upit)
-            return
+            rangirano=logickiupit(rootdir, upit,graf)
+            return rangirano
     s = Set()
     for i in range(len(reci)):
         print("Pronalazenje reci " + str(reci[i]) + ":")
@@ -26,7 +26,7 @@ def obicanUpit(rootdir, upit, graf):          # u obican upit mozemo uneti obicn
     return s
 
 
-def logickiupit(rootdir,upit):                         #ovde se mogu podrzati i logicki operatori, da moze da parsira zajedno sa njima
+def logickiupit(rootdir,upit,graf):                         #ovde se mogu podrzati i logicki operatori, da moze da parsira zajedno sa njima
     reci = upit.split(' ')
     if (len(reci) != 3):                      # duzina formata mora biti duzine 3, npr. java AND python
         print("Greska, nije dobar format! Obican upit: rec rec ... Logicki upit: rec operand rec [operand = AND,and,OR,or,NOT,not]")
@@ -40,8 +40,8 @@ def logickiupit(rootdir,upit):                         #ovde se mogu podrzati i 
         and2, vr_and2 = nas_recnik(reci[2], rootdir)
         if vr_and0 == 0 and vr_and2 == 0:
             return None
-        rang0and = rang(and0, graf)
-        rang2and = rang(and2, graf)
+        rang0and = rangiranje(and0, graf)
+        rang2and = rangiranje(and2, graf)
         s1.presek(rang0and, rang2and)
         return s1
 
@@ -51,8 +51,8 @@ def logickiupit(rootdir,upit):                         #ovde se mogu podrzati i 
         or2, vr_or2 = nas_recnik(reci[2], rootdir)
         if or0 == 0 and vr_or2 == 0:
             return None
-        rang0or = rang(or0, graf)
-        rang2or = rang(or2, graf)
+        rang0or = rangiranje(or0, graf)
+        rang2or = rangiranje(or2, graf)
         s2.unija(rang0or, rang2or)
         return s2
 
@@ -62,8 +62,8 @@ def logickiupit(rootdir,upit):                         #ovde se mogu podrzati i 
         not2, vr_not2 = nas_recnik(reci[2], rootdir)
         if vr_not0 == 0 and vr_not2 == 0:
             return None
-        rang0not = rang(not0, graf)
-        rang2not = rang(not2, graf)
+        rang0not = rangiranje(not0, graf)
+        rang2not = rangiranje(not2, graf)
         s3.komplement(rang0not, rang2not)
         return s3
 
@@ -76,10 +76,42 @@ def rangiranje(podaci,graf):
     for key in podaci.keys():
         rang = podaci[key] * 3
         linkovi = graf.incident_edges(key, False)
-        rang += len(linkovi) * 0.3
+        rang += len(linkovi) * 0.15
         for edge in linkovi:
             prekoputa = edge.opposite(key)
             if prekoputa in podaci.keys():
-                rang += podaci[prekoputa] * 0.5
+                rang += podaci[prekoputa] * 0.25
         rangovi[key.element()] = rang
     return rangovi
+
+
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if arr[j].rang < arr[j + 1].rang:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+
+
+def partition(arr, left, right):
+    # poslednji element postaje pivot
+    pivot = arr[right].rang
+    # varijabla čuva indeks poslednjeg elementa manjeg od pivota
+    i = left - 1
+
+    for j in range(left, right):
+        if arr[j].rang >= pivot:
+            i = i + 1
+            arr[i], arr[j] = arr[j], arr[i]
+
+    i = i + 1
+    arr[i], arr[right] = arr[right], arr[i]
+    return i
+
+
+def quick_sort(arr, left, right):
+
+    if left < right:
+        pivot = partition(arr, left, right)
+        quick_sort(arr, left, pivot - 1)
+        quick_sort(arr, pivot + 1, right)

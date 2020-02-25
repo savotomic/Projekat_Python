@@ -2,6 +2,7 @@ from time import time
 from Parsiraj_HTML import *
 from Pretraga import *
 from Graf import Graph
+from Pomocni import *
 
 if __name__ == '__main__':
     running = True
@@ -15,6 +16,7 @@ if __name__ == '__main__':
         print("1 - Parsiraj HTML fajl")
         print("2 - Parsiraj uneti HTML fajl")
         print("3 - Unos i pretraga upita")
+        print("4 - Ispis rezultata pretrage")
         print("")
         print("NAPOMENA:")
         print("Ako zelite da unesete neki upit, tj zelite opciju 3, potrebno je da prvo izaberete opciju 1 ili 2.")
@@ -59,7 +61,7 @@ if __name__ == '__main__':
                     unos = str(input("Unesite upit koji zelite da pretrazite: "))
                     startTime = time()
                     #obicanUpit(recnik, unos, graf)
-                    # rang = obicanUpit(recnik, unos, graf)
+                    rezultatRangiranja = obicanUpit(recnik, unos, graf)
                     #
                     # print(rang)
                     # listaZaSort = []                      #proba ranga
@@ -75,3 +77,20 @@ if __name__ == '__main__':
                     else:
                         print("Vreme pronalazenja unosa: " + str(vreme) + " sekundi")
                     running1 = False                         #da bi se vratio na pocetni meni
+
+        if userInput == "4":
+            startTime = time()
+
+            zaSortiranje = []
+            br = 1
+            for key, value in rezultatRangiranja.rezultat.items():
+                item = Pomocni(key,value)
+                zaSortiranje.append(item)
+            # bubble_sort(listaZaSort)
+            quick_sort(zaSortiranje, 0, len(zaSortiranje) - 1)
+            print('-----REZULTAT-----')
+            print('--------')
+            for i in range(len(zaSortiranje)):
+                print(i + 1,") ",zaSortiranje[i].link)
+                print("rang: ",zaSortiranje[i].rang)
+                print('----------')
