@@ -1,0 +1,56 @@
+﻿Napravili smo trie u kom smo implementirali dve funkcije:
+1. add za dodavanje koja dodaje reci na stablo i pretrazuje vec postojece cvorove i ako naidje na isti cvor onda za njega vezuje novi karakter i tako sve dok ne stigne do kraja reci, 
+a ako ne naidje na isti cvor onda pravi novi cvor. Kraj reci je na pocetku postavljen na false pa kada dodje do kraja reci postavimo ga na true.
+2. find_word sluzi za pretragu reci po datom stablu. Ovde imamo brojac koji broji ponavljanje reci u stablu tako sto trazi istu rec,gleda po celoj reci a ne po delovima reci.
+
+Funkcije za parsiranje HTML koje stoje kao opcije 1 i 2 u meniju koji se nalazi u main-u:
+1. funkcija parsiraj parsira datu lokaciju tako sto u kodu vec stoji putanja tog fajla i ova funkcija proverava takodje da li je uneti link validan. Ako jeste validan onda parsira dati 
+link i popunjava stablo. Takođe ova funkcija kao parametar prima graf koji je inicijalizovan u main-u.U ovoj funkcuji se graf popunjava, dodaju mu se prvo čvorovi pa onda ivice. 
+Graf je usmeren. Kao povratnu vrednost vraca recnik koji za kljuc ima putanju a za vrednost trie svih reci.
+2. funkcija parsiraj_unetu radi isto sto i funkcija parsiraj samo sto ona omogucava da se parsira lokacija koja se unese preko tastature.
+
+Funkcije za unos i proveru unosa:
+1. funkcija obicanUpit na pocetku splituje reci po razmacima, tj razdvaja reci da bi mogla da gleda po svakoj reci posebno. Ovde proveravamo postojanje logickih operatora, ako postoji bar
+jedan logicki operator onda prelazi na funkciju za proveru logickog upita. Ako ne postoji logicki operator, onda radimo dalje sa obicnim upitom.
+2. funkcija logickiUpit se poziva ako u obicnom upitu postoji bar jedan logicki operator(and,or,not) i onda proveravamo na pocetku da li je duzina upita 3, ako nije onda program izbacuje da
+unos nije dobrog formata, a ako jeste duzina 3 onda se proverava dalje. Proverava se da li su prva i treca rec razlicite od logickih operatora i da li je druga rec jedan od logickih
+operatora. Ako je i ovaj uslov ispunjen onda je unos dobar i radimo dalje sa njim, a ako nije zadovoljen i ovaj uslov, onda program treba da javi gresku da unos nije dobar.
+
+Pretraga dokumenata:
+1. funkcija nas_recnik omogucava pronalazenje unete reci na parsiranoj lokaciji, pomocu funkcije find_word opisane u klasi trie, i vraca nam recnik sa lokacijama gde se ta rec pojavljuje
+kao i njen broj pojavljivanja. Ovu funkciju pozivamo u funkciji obicanUnos jer nakon unosa i provere da li je unos dobar sledi pretraga tih reci, isto je ovako i kod logickog upita samo sto
+se tamo pretrazuje prva i treca rec. Ako se uneta rec ili vise reci ne pojavljuju u datom dokumentu tada program izbacuje gresku da rec/reci ne postoije na datoj lokaciji.
+
+Primena osnovnih skupovnih operacija:
+Nakon sto smo uneli rec i proverili postojanje logickih operatora sledi njihova upotreba. Ako je upit obican onda se izmedju reci vrsi unija(or) pomocu funkcije za uniju iz klase set.
+Ako je upit logicki i ako je ispravno unet tada se proverava koji je logicki operator na drugom mestu, i u zavisnosti od toga vrsimo uniju(or), presek(ans) i komlement(not) pomocu funkcija
+opisanih unutar klase set. 
+
+Rangiranje:
+Funkcija koja radi rangiranje se u našem kodu zove rangiranje. Ona kao parametre prima rečnik kod koga je ključ html stranica reči koja se pretražuje a vrednost broj te reči u datoj 
+stranici,ovaj rečnik dobijamo pomoću funkcije nas_recnik, drugi parametar je usmereni graf. U ovoj funkciji prolazimo kroz html stranice koje su ključevi ulaznog rečnika. Za svaku html 
+stranicu formiramo rang koji se sastoji od broja tražene reči na trenutnoj html stranici, broja linkova koji pokazuju na html stranicu i broja tražene reči iz linkova koji pokazuju na html 
+stranicu. Broj tražene reči na html stranici dobijamo iz rečnika i množimo ga sa 3. Pozivom metode usmerenog grafa incident_edges dobijamo sve linkove koiji pokazuju na trenutnu html 
+stranicu. Te linkove izbrojimo i pomnožimo sa 0.15, time dobijamo drugi deo ranga. Metodom klase edge pod imenom opposite dobijamo html stranice koje imaju link ka trenutnoj stranici,
+аko te susedne stranice u sebi sadrže traženu reč tada broj reči na sudednim stranicama množimo sa 0.25 i formiramo rang za html stranicu. Ovaj postupak uradimo za svaku html stranicu i 
+time dobijamo novi rečnik kod kog su ključevi iste html stranice kao iz ulaznog rečnika a vrednost su rangovi. Povratna vrednost ove funkcije je novi rečnik sa rangovima. 
+
+Sortiranje:
+Koristili smo quick sort.
+Algoritam se sastoji od sledećih koraka:
+    Nasumično izabrati neki član niza, koji se naziva pivot.
+    Razvrstati članove, tako da sve manje od pivota stavimo u jedan podniz, a veće u drugi. Dva podniza su nesortirana i razdvojena pivotom.
+    Rekurzivno sortirati svaki podniz na isti način. Rekurzija se nastavlja dok podnizovima ne ostane samo jedan element, nakon čega se dobija sortirani niz.
+U našem programu qucik sort je u opadajućem poretku, radi lakšeg prikaza rangiranih html stranica. Krtiterijum poretka nam je rang html stranica.
+
+Paginacija:
+Ona nam omogućava da prikažemo određen broj rezultata rangiranja po stranici. Realizovali smo je uz upotrebu django-a i njegove klase Paginator. Takođe uz pomoć ove klase možemo dinamički 
+da promenimo prikaz broja rezultata po stranicama.
+
+Klasa Set nam služi za realizovanje osnovnih skupovnih operacija. Ona u sebi sadrži metode unije,preseka i komplementa.  
+
+U main-u smo napravili meni sa opcijama za kraj programa, za parsiranje postojece lokacije, za parsiranje unete lokacije, za unos u kom se radi pretraga, prikaz rezultata i opciju za prikaz 
+odeđenog broja rezultata po stranici(paginacija). Kod opcije 3 proveravamo takodje duzinu unosa, jer ako je unos duzine 0 znaci da nismo nista uneli i program izbacuje gresku da nemamo unos 
+i da nesto unesemo i vrati se na prvobitni meni. 
+
+
